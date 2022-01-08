@@ -2,10 +2,10 @@
 type: DeviceConfiguration
 
 general:
-  hostname: sw1
-  fqdn: sw1.google.com
+  hostname: leaf1
+  fqdn: leaf1.mycompany.com
   type: Switch
-  tenant: google
+  tenant: mycompany
   location:
     datacenter: nyc1
     room: "100"
@@ -15,13 +15,13 @@ general:
 
 hardware:
   manufacturer: Cisco
-  model: Nexus 9396
+  model: Cisco Nexus
   asset_tag: "abc123"
   serial_number: "abc123"
 
 software:
-  os: IOS-XE
-  os_version: 15.2(3)E5
+  os: Cisco IOS
+  os_version: Cisco IOS 12.2(25)SEB4
 
 interfaces:
   - name: GigabitEthernet0/1
@@ -29,11 +29,12 @@ interfaces:
     type: ethernet
     enabled: true
     addresses:
-      - 85.123.22.2
+      - address: 206.12.48.220
+        version: 4
+      - address: 0e92:1d5b:e53e:0bf9:047b:5a9f:10d6:710a
+        version: 6
     mtu: 1500
   - name: GigabitEthernet0/2
     description: "Port 2"
     type: ethernet
     enabled: true
-    addresses:
-      - 27.123.22.1

@@ -6,7 +6,9 @@ skinparam BackgroundColor White
 skinparam Dpi 100
 
 node RESTAPI as "REST API"
-node Topology as "Topology\nMaker"
+component Syncer as "NetBox sync"
+node NetBox
+' node Topology as "Topology\nMaker"
 node Generator
 component Repository as "Git Repository"
 node Runner
@@ -18,11 +20,14 @@ Generator -down-> JsonSchema
 Generator -down-> Repository: generates device-specific\nconfigurations from\nthe data model
 RESTAPI --> JsonSchema
 RESTAPI -right-> Repository
-Topology -up-> RESTAPI
-Admin -right-> Topology: views\ntopology diagrams
+Repository -down-> Syncer
+Syncer -down-> NetBox
+' Topology -up-> RESTAPI
+' Admin -right-> Topology: views\ntopology diagrams
 Admin -up-> JsonSchema: must follow\nthe data model
 Admin -up-> Repository: creates a\nconfiguration change
 Admin -up-> RESTAPI: uses\nquery tools
-Runner -up-> Repository: retrieves\nconfiguration changes
+Admin -right-> NetBox: read only\naccess
+Runner -right-> Repository: retrieves\nconfiguration changes
 Runner -down-> NetworkDevice: applies\nconfiguration changes
 @enduml

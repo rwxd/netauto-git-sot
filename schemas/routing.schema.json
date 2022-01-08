@@ -1,0 +1,62 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["type", "protocol", "version", "metric", "routes"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["NetworkRoutes"]
+    },
+    "protocol": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "metric": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "string"
+    },
+    "router_id": {
+      "type": "string"
+    },
+    "topology_id": {
+      "type": "string"
+    },
+    "routes": {
+      "type": "array",
+      "title": "Routes",
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "type": "object",
+        "title": "Route",
+        "additionalProperties": true,
+        "required": ["destination", "next", "device", "cost"],
+        "properties": {
+          "destination": {
+            "type": "string"
+          },
+          "next": {
+            "type": "string"
+          },
+          "device": {
+            "type": "string"
+          },
+          "cost": {
+            "type": "number"
+          },
+          "source": {
+            "type": "string"
+          },
+          "cost_txt": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

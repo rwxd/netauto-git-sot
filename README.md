@@ -4,8 +4,9 @@
 
 ## JSON Schema
 
-### Convert Schema to Python Model
+## Make Target
 
 ```bash
-datamodel-codegen --input schemas/device.schema.json --input-file-type jsonschema --output generator/models/device_configuration.py
+convert-schemas                Convert JSON schemas to other files
+setup                          Setup required things
 ```

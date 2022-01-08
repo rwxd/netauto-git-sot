@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JSON Schema Definitions for Network Objects",
+  "description": "",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "ipv4_address": {
+      "type": "object",
+      "description": "Represents a IPv4 address",
+      "additionalProperties": false,
+      "required": ["address", "version"],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "default": 4,
+          "const": 4
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "ipv6_address": {
+      "type": "object",
+      "description": "Represents a IPv6 address",
+      "additionalProperties": false,
+      "required": ["address", "version"],
+      "properties": {
+        "version": {
+          "type": "integer",
+          "default": 6,
+          "const": 6
+        },
+        "address": {
+          "type": "string"
+        }
+      }
+    },
+    "ipv4_interface": {
+      "type": "object",
+      "description": "Represents a IPv4 Interface",
+      "additionalProperties": false,
+      "required": ["address", "subnet", "gateway"],
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/ipv4_address"
+        },
+        "subnet": {
+          "type": "string"
+        },
+        "gateway": {
+          "$ref": "#/definitions/ipv4_address"
+        }
+      }
+    },
+    "ipv6_interface": {
+      "type": "object",
+      "description": "Represents a IPv6 Interface",
+      "additionalProperties": false,
+      "required": ["address", "subnet", "gateway"],
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/ipv6_address"
+        },
+        "subnet": {
+          "type": "string"
+        },
+        "gateway": {
+          "$ref": "#/definitions/ipv6_address"
+        }
+      }
+    }
+  }
+}

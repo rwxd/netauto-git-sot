@@ -2,10 +2,10 @@
 type: DeviceConfiguration
 
 general:
-  hostname: sw2
-  fqdn: sw2.google.com
+  hostname: leaf2
+  fqdn: leaf2.example.com
   type: Switch
-  tenant: google
+  tenant: mycompany
   location:
     datacenter: nyc1
     room: "100"

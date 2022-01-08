@@ -5,7 +5,7 @@
   "type": "object",
   "additionalProperties": false,
   "definitions": {
-    "interface_settings": {
+    "interface_configuration": {
       "type": "object",
       "description": "The list of interfaces defined",
       "required": ["name", "type", "description"],
@@ -52,26 +52,14 @@
           "additionalItems": true,
           "items": {
             "type": "object",
-            "title": "Address",
-            "additionalProperties": true,
-            "required": ["address", "subnet", "family"],
-            "properties": {
-              "family": {
-                "type": "string",
-                "enum": ["ipv4", "ipv6"]
+            "oneOf": [
+              {
+                "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv4_address"
               },
-              "address": {
-                "type": "string"
-              },
-              "subnet": {
-                "type": "integer",
-                "minimum": 0,
-                "maximum": 128
-              },
-              "gateway": {
-                "type": "string"
+              {
+                "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv6_address"
               }
-            }
+            ]
           }
         }
       }
@@ -80,6 +68,8 @@
       "title": "Network Interface",
       "allOf": [
         {
+          "title": "Type",
+          "description": "Type of the Network Interface",
           "properties": {
             "type": {
               "type": "string",
@@ -87,7 +77,7 @@
             }
           }
         },
-        { "$ref": "#/definitions/interface_settings" }
+        { "$ref": "#/definitions/interface_configuration" }
       ]
     },
     "bridge_interface": {
@@ -102,7 +92,7 @@
             }
           }
         },
-        { "$ref": "#/definitions/interface_settings" },
+        { "$ref": "#/definitions/interface_configuration" },
         {
           "properties": {
             "bridge_members": {
@@ -116,6 +106,41 @@
           }
         }
       ]
+    },
+    "bgp_configuration": {
+      "title": "BGP Configuration",
+      "description": "Represents the bgp configuration of a device",
+      "properties": {
+        "transit": {
+          "title": "Transit",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "asn": { "type": "integer" },
+              "remote": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv4_address"
+                    },
+                    {
+                      "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv6_address"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "ospf_configuration": {
+      "title": "OSPF Configuration",
+      "description": "Represents the ospf configuration of a device",
+      "items": {}
     },
     "location": {
       "title": "Device Location",
@@ -160,7 +185,7 @@
       }
     }
   },
-  "required": ["type"],
+  "required": ["type", "general", "hardware", "software"],
   "properties": {
     "type": {
       "type": "string",
@@ -192,7 +217,6 @@
         "type": {
           "type": "string",
           "enum": [
-            "Device",
             "Router",
             "Switch",
             "Firewall",
@@ -216,33 +240,55 @@
     "hardware": {
       "type": "object",
       "title": "Hardware",
+      "description": "The hardware of the device",
       "additionalProperties": true,
       "properties": {
         "manufacturer": {
-          "type": "string"
+          "type": "string",
+          "enum": ["Cisco", "Juniper", "Mellanox", "Checkpoint"]
         },
         "model": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "Cisco Nexus",
+            "Juniper EX",
+            "Juniper QFX",
+            "Juniper SRX",
+            "Juniper SRX-Firewall",
+            "Mellanox XY",
+            "Checkpoint ABC"
+          ]
         },
         "serial_number": {
           "type": "string",
-          "description": "The serial number of the device"
+          "description": "The serial number of the device",
+          "maxLength": 64
         },
         "asset_tag": {
-          "type": "string"
+          "type": "string",
+          "description": "The asset tag of the device",
+          "maxLength": 64
         }
       }
     },
     "software": {
       "type": "object",
       "title": "Software",
+      "description": "The software of the device",
       "additionalProperties": true,
+      "required": ["os", "os_version"],
       "properties": {
         "os": {
-          "type": "string"
+          "type": "string",
+          "enum": ["Cisco IOS", "Juniper Junos", "Cumulus Linux", "Gaia OS"]
         },
         "os_version": {
-          "type": "string"
+          "type": "string",
+          "enum": [
+            "Cisco IOS 12.4(9)T1",
+            "Cisco IOS 12.4(7)a",
+            "Cisco IOS 12.2(25)SEB4"
+          ]
         },
         "description": {
           "type": "string"
@@ -253,12 +299,22 @@
       "type": "array",
       "title": "Interfaces",
       "uniqueItems": true,
-      "additionalItems": true,
       "items": {
         "oneOf": [
           { "$ref": "#/definitions/network_interface" },
           { "$ref": "#/definitions/bridge_interface" }
         ]
+      }
+    },
+    "routing": {
+      "type": "array",
+      "title": "Routing",
+      "uniqueItems": true,
+      "properties": {
+        "bgp": {
+          "$ref": "#/definitions/bgp_configuration"
+        },
+        "ospf": { "$ref": "#/definitions/ospf_configuration" }
       }
     }
   }
