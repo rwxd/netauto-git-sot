@@ -1,0 +1,6 @@
+hostname sw1
+domain google.com
+timezone Europe/Berlin
+snmp location nyc1/100A1
+interface GigabitEthernet0/1 description Port 1
+interface GigabitEthernet0/2 description Port 2

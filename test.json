@@ -1,0 +1,63 @@
+{
+  "organizations": [
+    {
+      "name": "mycompany",
+      "tenants": [
+        {
+          "name": "google",
+          "devices": [
+            {
+              "type": "DeviceConfiguration",
+              "general": {
+                "hostname": "sw1",
+                "fqdn": "sw1.google.com",
+                "tenant": "google",
+                "location": {
+                  "datacenter": "nyc1",
+                  "room": "100",
+                  "rack": "A",
+                  "shelf": "1"
+                },
+                "description": null,
+                "timezone": "Europe/Berlin"
+              },
+              "hardware": {
+                "manufacturer": "Cisco",
+                "model": "Nexus 9396",
+                "serial_number": "abc123",
+                "asset_tag": "abc123"
+              },
+              "software": {
+                "os": "IOS-XE",
+                "os_version": "15.2(3)E5",
+                "description": null
+              },
+              "interfaces": [
+                {
+                  "name": "GigabitEthernet0/1",
+                  "description": "Port 1",
+                  "mac": null,
+                  "mtu": 1500,
+                  "speed": null,
+                  "enabled": true,
+                  "addresses": ["85.123.22.2"],
+                  "type": "ethernet"
+                },
+                {
+                  "name": "GigabitEthernet0/2",
+                  "description": "Port 2",
+                  "mac": null,
+                  "mtu": null,
+                  "speed": null,
+                  "enabled": true,
+                  "addresses": ["27.123.22.1"],
+                  "type": "ethernet"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

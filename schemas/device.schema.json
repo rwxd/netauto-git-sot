@@ -1,0 +1,265 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "JSON Schema for Network Configuration",
+  "description": "Describes the Configuration of a Network Device",
+  "type": "object",
+  "additionalProperties": false,
+  "definitions": {
+    "interface_settings": {
+      "type": "object",
+      "description": "The list of interfaces defined",
+      "required": ["name", "type", "description"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "maxLength": 20,
+          "pattern": "^[^\\s]*$"
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "mac": {
+          "type": "string",
+          "maxLength": 17,
+          "pattern": "^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$"
+        },
+        "mtu": {
+          "type": "integer",
+          "minimum": 576,
+          "maximum": 9216
+        },
+        "speed": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000000
+        },
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "connected_to": {
+          "type": "object",
+          "description": "The name of the interface this interface is connected to",
+          "maxLength": 20,
+          "pattern": "^[^\\s]*$",
+          "$ref": "#/definitions/connection"
+        },
+        "addresses": {
+          "type": "array",
+          "title": "Addresses",
+          "uniqueItems": true,
+          "additionalItems": true,
+          "items": {
+            "type": "object",
+            "title": "Address",
+            "additionalProperties": true,
+            "required": ["address", "subnet", "family"],
+            "properties": {
+              "family": {
+                "type": "string",
+                "enum": ["ipv4", "ipv6"]
+              },
+              "address": {
+                "type": "string"
+              },
+              "subnet": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 128
+              },
+              "gateway": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "network_interface": {
+      "title": "Network Interface",
+      "allOf": [
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["ethernet", "virtual", "loopback", "child"]
+            }
+          }
+        },
+        { "$ref": "#/definitions/interface_settings" }
+      ]
+    },
+    "bridge_interface": {
+      "title": "Bridge Interface",
+      "required": ["bridge_members"],
+      "allOf": [
+        {
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": ["bridge"]
+            }
+          }
+        },
+        { "$ref": "#/definitions/interface_settings" },
+        {
+          "properties": {
+            "bridge_members": {
+              "type": "array",
+              "title": "Bridge Members",
+              "uniqueItems": true,
+              "items": {
+                "$ref": "#/definitions/network_interface"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "location": {
+      "title": "Device Location",
+      "properties": {
+        "datacenter": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[^\\s]*$"
+        },
+        "room": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[^\\s]*$"
+        },
+        "rack": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[^\\s]*$"
+        },
+        "shelf": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[^\\s]*$"
+        }
+      }
+    },
+    "connection": {
+      "type": "object",
+      "description": "Represents a connection to a (network) device",
+      "required": ["hostname"],
+      "properties": {
+        "hostname": {
+          "type": "string",
+          "maxLength": 255,
+          "pattern": "^[^\\s]*$"
+        },
+        "port": {
+          "type": "string",
+          "maxLength": 255,
+          "pattern": "^[^\\s]*$"
+        }
+      }
+    }
+  },
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["DeviceConfiguration"]
+    },
+    "general": {
+      "type": "object",
+      "title": "General Settings",
+      "additionalProperties": true,
+      "required": [
+        "hostname",
+        "fqdn",
+        "type",
+        "tenant",
+        "location",
+        "timezone"
+      ],
+      "properties": {
+        "hostname": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[^\\s]*$"
+        },
+        "fqdn": {
+          "type": "string",
+          "maxLength": 255,
+          "pattern": "^[^\\s]*$"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Device",
+            "Router",
+            "Switch",
+            "Firewall",
+            "WirelessRouter",
+            "WirelessSwitch",
+            "WirelessAccessPoint"
+          ]
+        },
+        "tenant": { "type": "string", "maxLength": 64, "pattern": "^[^\\s]*$" },
+        "location": {
+          "$ref": "#/definitions/location"
+        },
+        "description": {
+          "type": "string"
+        },
+        "timezone": {
+          "type": "string"
+        }
+      }
+    },
+    "hardware": {
+      "type": "object",
+      "title": "Hardware",
+      "additionalProperties": true,
+      "properties": {
+        "manufacturer": {
+          "type": "string"
+        },
+        "model": {
+          "type": "string"
+        },
+        "serial_number": {
+          "type": "string",
+          "description": "The serial number of the device"
+        },
+        "asset_tag": {
+          "type": "string"
+        }
+      }
+    },
+    "software": {
+      "type": "object",
+      "title": "Software",
+      "additionalProperties": true,
+      "properties": {
+        "os": {
+          "type": "string"
+        },
+        "os_version": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "interfaces": {
+      "type": "array",
+      "title": "Interfaces",
+      "uniqueItems": true,
+      "additionalItems": true,
+      "items": {
+        "oneOf": [
+          { "$ref": "#/definitions/network_interface" },
+          { "$ref": "#/definitions/bridge_interface" }
+        ]
+      }
+    }
+  }
+}

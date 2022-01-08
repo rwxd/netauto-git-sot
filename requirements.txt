@@ -1,0 +1,4 @@
+jsonschema==4.3.3
+PyYaml
+datamodel-code-generator
+typer==0.4.0

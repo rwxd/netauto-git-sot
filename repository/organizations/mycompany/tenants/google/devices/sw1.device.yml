@@ -1,0 +1,39 @@
+---
+type: DeviceConfiguration
+
+general:
+  hostname: sw1
+  fqdn: sw1.google.com
+  type: Switch
+  tenant: google
+  location:
+    datacenter: nyc1
+    room: "100"
+    rack: A
+    shelf: "1"
+  timezone: Europe/Berlin
+
+hardware:
+  manufacturer: Cisco
+  model: Nexus 9396
+  asset_tag: "abc123"
+  serial_number: "abc123"
+
+software:
+  os: IOS-XE
+  os_version: 15.2(3)E5
+
+interfaces:
+  - name: GigabitEthernet0/1
+    description: "Port 1"
+    type: ethernet
+    enabled: true
+    addresses:
+      - 85.123.22.2
+    mtu: 1500
+  - name: GigabitEthernet0/2
+    description: "Port 2"
+    type: ethernet
+    enabled: true
+    addresses:
+      - 27.123.22.1
