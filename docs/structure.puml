@@ -25,7 +25,7 @@ Syncer -down-> NetBox
 ' Topology -up-> RESTAPI
 ' Admin -right-> Topology: views\ntopology diagrams
 Admin -up-> JsonSchema: must follow\nthe data model
-Admin -up-> Repository: creates a\nconfiguration change
+Admin -up-> Repository: creates\nconfiguration changes
 Admin -up-> RESTAPI: uses\nquery tools
 Admin -right-> NetBox: read only\naccess
 Runner -right-> Repository: retrieves\nconfiguration changes
