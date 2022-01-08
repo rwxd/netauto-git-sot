@@ -1,0 +1,30 @@
+type: SystemConfiguration
+dns:
+  servers:
+    - name: dns1
+      address:
+        address: 123.179.52.34
+        version: 4
+    - name: dns2
+      ipv4:
+        address: 110.31.116.194
+      ipv6:
+        address: 4202:a009:b69f:26fa:eb90:1470:6526:87a0
+    - name: test2
+      ipv4:
+        address: 217.6.72.9
+
+tacacs:
+  servers:
+    - name: tacacs1
+      ipv4:
+        address: 221.144.165.52
+      ipv6:
+        address: 6cab:da9f:8870:c218:14f3:01fc:a7d7:96ae
+    - name: tacacs2
+      ipv4:
+        address: 154.199.211.117
+      ipv6:
+        address: c962:71fa:2486:1a48:403f:145d:b364:f5fa
+
+timezone: Europe/Berlin

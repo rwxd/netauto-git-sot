@@ -9,13 +9,8 @@
       "type": "object",
       "description": "Represents a IPv4 address",
       "additionalProperties": false,
-      "required": ["address", "version"],
+      "required": ["address"],
       "properties": {
-        "version": {
-          "type": "integer",
-          "default": 4,
-          "const": 4
-        },
         "address": {
           "type": "string"
         }
@@ -25,13 +20,8 @@
       "type": "object",
       "description": "Represents a IPv6 address",
       "additionalProperties": false,
-      "required": ["address", "version"],
+      "required": ["address"],
       "properties": {
-        "version": {
-          "type": "integer",
-          "default": 6,
-          "const": 6
-        },
         "address": {
           "type": "string"
         }

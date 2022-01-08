@@ -1,4 +1,4 @@
-from generator.cmd import app
+from eve.cmd.root import app
 
 
 def main() -> int:

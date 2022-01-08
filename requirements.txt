@@ -1,6 +1,8 @@
 jsonschema==4.3.3
-PyYaml
-datamodel-code-generator
-json-schema-for-humans
+PyYAML==5.4.1
+datamodel-code-generator==0.11.15
+json-schema-for-humans==0.39.5
 typer==0.4.0
-Jinja2
+Jinja2==3.0.3
+netaddr==0.8.0
+ansible==5.1.0

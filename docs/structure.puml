@@ -5,29 +5,31 @@ skinparam DefaultTextAlignment center
 skinparam BackgroundColor White
 skinparam Dpi 100
 
-node RESTAPI as "REST API"
+' node RESTAPI as "REST API"
 component Syncer as "NetBox sync"
 node NetBox
 ' node Topology as "Topology\nMaker"
-node Generator
+node eve
 component Repository as "Git Repository"
 node Runner
-node NetworkDevice as "Network\nDevice"
+node NetworkDevice as "Network Device"
 component JsonSchema
 actor Admin
 
-Generator -down-> JsonSchema
-Generator -down-> Repository: generates device-specific\nconfigurations from\nthe data model
-RESTAPI --> JsonSchema
-RESTAPI -right-> Repository
-Repository -down-> Syncer
-Syncer -down-> NetBox
+
+' RESTAPI --> JsonSchema
+' RESTAPI -right-> Repository
+Repository -up-> Syncer
+Syncer -up-> NetBox
 ' Topology -up-> RESTAPI
 ' Admin -right-> Topology: views\ntopology diagrams
-Admin -up-> JsonSchema: must follow\nthe data model
-Admin -up-> Repository: creates\nconfiguration changes
-Admin -up-> RESTAPI: uses\nquery tools
-Admin -right-> NetBox: read only\naccess
-Runner -right-> Repository: retrieves\nconfiguration changes
+eve -down-> Repository: generates device-specific\nconfigurations from\nthe data model
+eve -right-> JsonSchema: verifies config
+Admin -down--> eve
+Admin -down-> JsonSchema: must follow\nthe data model
+Admin -down-> Repository: creates\nconfiguration changes
+' Admin -down-> RESTAPI: uses\nquery tools
+Admin -left-> NetBox: read only\naccess
+Runner -down-> Repository: retrieves\nconfiguration changes
 Runner -down-> NetworkDevice: applies\nconfiguration changes
 @enduml

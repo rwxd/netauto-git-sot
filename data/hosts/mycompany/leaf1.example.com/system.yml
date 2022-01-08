@@ -1,0 +1,11 @@
+type: SystemConfiguration
+
+general:
+  hostname: leaf1
+  fqdn: leaf1.example.com
+  type: Switch
+  tenant: mycompany
+  location:
+  groups:
+    - leaf
+    - fabric

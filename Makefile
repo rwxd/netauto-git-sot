@@ -8,7 +8,8 @@ setup: ## Setup required things
 	@python3 -m pip install -r requirements-dev.txt
 
 convert-schemas: ## Convert JSON schemas to other files
-	@datamodel-codegen --input schemas/device.schema.json --input-file-type jsonschema --output generator/models/device_configuration.py
+	@datamodel-codegen --input schemas/topology.schema.json --input-file-type jsonschema --output eve/models/topology.py
+	@datamodel-codegen --input schemas/system.schema.json --input-file-type jsonschema --output eve/models/system.py
 	@generate-schema-doc schemas/ docs/schemas/
 
 serve-web: convert-schemas ## Run the web server

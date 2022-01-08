@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "JSON Schema for System Configuration",
+  "description": "Describes the system configuration of a network device",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["type"],
+  "definitions": {
+    "location": {
+      "title": "Device Location",
+      "properties": {
+        "datacenter": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "room": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "rack": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "shelf": {
+          "type": "string",
+          "maxLength": 64
+        }
+      }
+    }
+  },
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["SystemConfiguration"]
+    },
+    "dns": {
+      "type": "object",
+      "title": "DNS Configuration",
+      "additionalItems": false,
+      "properties": {
+        "servers": {
+          "title": "DNS Servers",
+          "type": "array",
+          "items": {
+            "title": "DNS Server",
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "ipv4": {
+                "$ref": "./network.definitions.schema.json#/definitions/ipv4_address"
+              },
+              "ipv6": {
+                "$ref": "./network.definitions.schema.json#/definitions/ipv6_address"
+              }
+            }
+          }
+        }
+      }
+    },
+    "tacacs": {
+      "title": "TACACS Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "servers": {
+          "title": "TACACS Servers",
+          "type": "array",
+          "items": {
+            "title": "TACACS Server",
+            "properties": {
+              "name": { "type": "string" },
+              "ipv4": {
+                "$ref": "./network.definitions.schema.json#/definitions/ipv4_address"
+              },
+              "ipv6": {
+                "$ref": "./network.definitions.schema.json#/definitions/ipv6_address"
+              }
+            }
+          }
+        }
+      }
+    },
+    "netbox": {
+      "title": "NetBox Configuration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manufacturer": {
+          "title": "Manufacturer",
+          "description": "Slug of the manufacturer in NetBox",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "description": "Slug of the model in NetBox",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "description": "Slug of the role in NetBox",
+          "type": "string"
+        },
+        "asset_tag": {
+          "title": "Asset Tag",
+          "description": "Asset tag of the device",
+          "type": "string"
+        },
+        "serial_number": {
+          "title": "Serial Number",
+          "description": "Serial Number of the device",
+          "type": "string"
+        }
+      }
+    },
+    "general": {
+      "type": "object",
+      "title": "General Settings",
+      "additionalProperties": true,
+      "required": ["hostname", "fqdn", "type", "tenant", "location"],
+      "properties": {
+        "hostname": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "fqdn": {
+          "type": "string",
+          "maxLength": 255
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "Router",
+            "Switch",
+            "Firewall",
+            "WirelessRouter",
+            "WirelessSwitch",
+            "WirelessAccessPoint"
+          ]
+        },
+        "tenant": { "type": "string", "maxLength": 64 },
+        "location": {
+          "$ref": "#/definitions/location"
+        },
+        "description": {
+          "type": "string"
+        },
+        "groups": {
+          "title": "Groups",
+          "type": "array",
+          "items": {
+            "title": "Group",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "timezone": {
+      "title": "Timezone",
+      "description": "Timezone for the device",
+      "type": "string",
+      "default": "Europe/Berlin",
+      "pattern": "^([a-zA-Z]+\\/[a-zA-Z]+)$"
+    }
+  }
+}

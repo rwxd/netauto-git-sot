@@ -8,5 +8,6 @@
 
 ```bash
 convert-schemas                Convert JSON schemas to other files
+serve-web                      Run the web server
 setup                          Setup required things
 ```

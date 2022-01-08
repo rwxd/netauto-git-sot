@@ -1,0 +1,15 @@
+---
+type: SystemConfiguration
+
+general:
+  hostname: leaf2
+  fqdn: leaf2.example.com
+  type: Switch
+  tenant: mycompany
+  location:
+    datacenter: nyc1
+    room: "100"
+    rack: A
+    shelf: "1"
+
+timezone: Europe/Berlin

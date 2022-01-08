@@ -8,15 +8,15 @@
       "name": "Generate Config",
       "type": "python",
       "request": "launch",
-      "module": "generator",
+      "module": "eve",
       "args": ["generate-config", "sw1.device-config.yml", "sw1.txt"]
     },
     {
-      "name": "Repository Structure",
+      "name": "Validate schemas",
       "type": "python",
       "request": "launch",
-      "module": "generator",
-      "args": ["repository-structure", "./repository", "test.json"]
+      "module": "eve",
+      "args": ["validate", "schemas"]
     }
   ]
 }

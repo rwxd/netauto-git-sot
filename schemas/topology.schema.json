@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "JSON Schema for Network Configuration",
-  "description": "Describes the Configuration of a Network Device",
+  "title": "JSON Schema for Topology Configuration",
+  "description": "Describes the topology configuration for a network device",
   "type": "object",
   "additionalProperties": false,
   "definitions": {
@@ -12,8 +12,7 @@
       "properties": {
         "name": {
           "type": "string",
-          "maxLength": 20,
-          "pattern": "^[^\\s]*$"
+          "maxLength": 20
         },
         "description": {
           "type": "string",
@@ -42,7 +41,6 @@
           "type": "object",
           "description": "The name of the interface this interface is connected to",
           "maxLength": 20,
-          "pattern": "^[^\\s]*$",
           "$ref": "#/definitions/connection"
         },
         "addresses": {
@@ -52,12 +50,12 @@
           "additionalItems": true,
           "items": {
             "type": "object",
-            "oneOf": [
+            "anyOf": [
               {
-                "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv4_address"
+                "$ref": "./network.definitions.schema.json#/definitions/ipv4_address"
               },
               {
-                "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv6_address"
+                "$ref": "./network.definitions.schema.json#/definitions/ipv6_address"
               }
             ]
           }
@@ -124,10 +122,10 @@
                 "items": {
                   "oneOf": [
                     {
-                      "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv4_address"
+                      "$ref": "./network.definitions.schema.json#/definitions/ipv4_address"
                     },
                     {
-                      "$ref": "/home/fwrage/dev/netauto-git-sot/schemas/network.definitions.schema.json#/definitions/ipv6_address"
+                      "$ref": "./network.definitions.schema.json#/definitions/ipv6_address"
                     }
                   ]
                 }
@@ -142,31 +140,6 @@
       "description": "Represents the ospf configuration of a device",
       "items": {}
     },
-    "location": {
-      "title": "Device Location",
-      "properties": {
-        "datacenter": {
-          "type": "string",
-          "maxLength": 64,
-          "pattern": "^[^\\s]*$"
-        },
-        "room": {
-          "type": "string",
-          "maxLength": 64,
-          "pattern": "^[^\\s]*$"
-        },
-        "rack": {
-          "type": "string",
-          "maxLength": 64,
-          "pattern": "^[^\\s]*$"
-        },
-        "shelf": {
-          "type": "string",
-          "maxLength": 64,
-          "pattern": "^[^\\s]*$"
-        }
-      }
-    },
     "connection": {
       "type": "object",
       "description": "Represents a connection to a (network) device",
@@ -174,126 +147,20 @@
       "properties": {
         "hostname": {
           "type": "string",
-          "maxLength": 255,
-          "pattern": "^[^\\s]*$"
+          "maxLength": 255
         },
         "port": {
           "type": "string",
-          "maxLength": 255,
-          "pattern": "^[^\\s]*$"
+          "maxLength": 255
         }
       }
     }
   },
-  "required": ["type", "general", "hardware", "software"],
+  "required": ["type"],
   "properties": {
     "type": {
       "type": "string",
-      "enum": ["DeviceConfiguration"]
-    },
-    "general": {
-      "type": "object",
-      "title": "General Settings",
-      "additionalProperties": true,
-      "required": [
-        "hostname",
-        "fqdn",
-        "type",
-        "tenant",
-        "location",
-        "timezone"
-      ],
-      "properties": {
-        "hostname": {
-          "type": "string",
-          "maxLength": 64,
-          "pattern": "^[^\\s]*$"
-        },
-        "fqdn": {
-          "type": "string",
-          "maxLength": 255,
-          "pattern": "^[^\\s]*$"
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "Router",
-            "Switch",
-            "Firewall",
-            "WirelessRouter",
-            "WirelessSwitch",
-            "WirelessAccessPoint"
-          ]
-        },
-        "tenant": { "type": "string", "maxLength": 64, "pattern": "^[^\\s]*$" },
-        "location": {
-          "$ref": "#/definitions/location"
-        },
-        "description": {
-          "type": "string"
-        },
-        "timezone": {
-          "type": "string"
-        }
-      }
-    },
-    "hardware": {
-      "type": "object",
-      "title": "Hardware",
-      "description": "The hardware of the device",
-      "additionalProperties": true,
-      "properties": {
-        "manufacturer": {
-          "type": "string",
-          "enum": ["Cisco", "Juniper", "Mellanox", "Checkpoint"]
-        },
-        "model": {
-          "type": "string",
-          "enum": [
-            "Cisco Nexus",
-            "Juniper EX",
-            "Juniper QFX",
-            "Juniper SRX",
-            "Juniper SRX-Firewall",
-            "Mellanox XY",
-            "Checkpoint ABC"
-          ]
-        },
-        "serial_number": {
-          "type": "string",
-          "description": "The serial number of the device",
-          "maxLength": 64
-        },
-        "asset_tag": {
-          "type": "string",
-          "description": "The asset tag of the device",
-          "maxLength": 64
-        }
-      }
-    },
-    "software": {
-      "type": "object",
-      "title": "Software",
-      "description": "The software of the device",
-      "additionalProperties": true,
-      "required": ["os", "os_version"],
-      "properties": {
-        "os": {
-          "type": "string",
-          "enum": ["Cisco IOS", "Juniper Junos", "Cumulus Linux", "Gaia OS"]
-        },
-        "os_version": {
-          "type": "string",
-          "enum": [
-            "Cisco IOS 12.4(9)T1",
-            "Cisco IOS 12.4(7)a",
-            "Cisco IOS 12.2(25)SEB4"
-          ]
-        },
-        "description": {
-          "type": "string"
-        }
-      }
+      "enum": ["TopologyConfiguration"]
     },
     "interfaces": {
       "type": "array",

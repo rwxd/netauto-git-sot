@@ -1,6 +1,6 @@
 from typing import List
 from pydantic import BaseModel
-from generator.models.device_configuration import JsonSchemaForNetworkConfiguration
+from eve.models.device_configuration import JsonSchemaForNetworkConfiguration
 
 
 class Tenant(BaseModel):
