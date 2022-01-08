@@ -1,4 +1,4 @@
-# Git as Source of Truth for network automation
+# Git as Source of Truth for Network Automation
 
 ![structure](out/docs/structure/name%20Git%20as%20Source%20of%20Truth.png)
 
