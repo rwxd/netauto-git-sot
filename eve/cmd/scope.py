@@ -28,7 +28,13 @@ def device(device: str = typer.Argument(..., help='Device to get the scope for')
     console.print(Panel.fit(scope_panel, title='Scopes'))
 
     searchpaths_panel = '\n'.join([str(p) for p in searchpaths])
-    console.print(Panel.fit(searchpaths_panel, title='Searchpaths'))
+    console.print(
+        Panel.fit(
+            searchpaths_panel,
+            title='Searchpaths',
+            subtitle='[green]Paths are searched top down.[/green]',
+        )
+    )
 
 
 def get_key_strings_from_dict(data: dict) -> List[Tuple[str, str]]:

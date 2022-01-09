@@ -52,7 +52,7 @@ iface {{ interface.name }}
 
 # VLANs
 {% for interface in lookup('topology', 'interfaces') %}
-    {% if interface.type.name == 'virtual' %}
+    {% if interface.type.name == 'vlan' %}
 auto {{ interface.name }}
 iface {{ interface.name }}
     {% if interface.description %}
@@ -76,11 +76,23 @@ iface vni{{ vxlan.vni }}
     bridge-access {{ vxlan.vlan }}
     vxlan-id {{ vxlan.vni }}
     vxlan-local-tunnelip {{ ((lookup('topology', 'interfaces') | selectattr("type.name", "eq", "loopback") | first).addresses | first).address }}
-
+    bridge-arp-nd-suppress on
+    bridge-learning off
+    mstpctl-bpduguard yes
+    mstpctl-portbpdufilter yes
 
 {% endfor %}
-# VRFs
 
+# VRFs
+{% for vrf in lookup('topology', 'vrfs') %}
+auto vrf{{ vrf.name }}
+iface vrf{{ vrf.name }}
+    vrf-table auto
+
+{% endfor %}
+
+# Bridges
 auto bridge
 iface bridge
-
+    bridge-ports {{ lookup("topology", "interfaces") | selectattr("type.name", "eq", "ethernet") | map(attribute="name") | join(", ") }}
+    bridge-vids {{ lookup("topology", "interfaces" ) | selectattr("type.name", "eq", "ethernet") | rejectattr("untagged_vlan", 'none') | map(attribute="untagged_vlan") | join(", ") }}
