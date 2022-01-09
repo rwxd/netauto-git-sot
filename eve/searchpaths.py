@@ -12,7 +12,10 @@ def get_searchpaths(scope: Dict[str, Union[List, str]]) -> List[Path]:
         'os/{scope[system][software][os]}/{scope[system][software][os_version]}',
         'os/{scope[system][software][os]}/',
         'common/',
-        *['groups/{group}' for group in scope.get('groups', [])],
+        *[
+            f'groups/{scope["system"]["general"]["tenant"]}/{group}/'
+            for group in scope.get('system', {}).get('groups', [])[::-1]
+        ],
     ]
 
     for idx in range(len(paths)):

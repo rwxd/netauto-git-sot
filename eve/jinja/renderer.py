@@ -45,7 +45,7 @@ class TemplateRenderer(object):
     def __init__(
         self,
         basepath: Path,
-        devices: List[Path],
+        devices: List[str],
         cache: bool,
         classifier: Classifier,
         jerakia: Jerakia,

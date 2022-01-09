@@ -37,12 +37,7 @@
           "type": "boolean",
           "default": true
         },
-        "connected_to": {
-          "type": "object",
-          "description": "The name of the interface this interface is connected to",
-          "maxLength": 20,
-          "$ref": "#/definitions/connection"
-        },
+
         "addresses": {
           "type": "array",
           "title": "Addresses",
@@ -59,6 +54,25 @@
               }
             ]
           }
+        },
+        "tagged_vlans": {
+          "type": "array",
+          "title": "Tagged VLANs",
+          "description": "The list of VLANs this interface is tagged with",
+          "uniqueItems": true,
+          "items": {
+            "title": "Tagged VLAN",
+            "type": "integer"
+          }
+        },
+        "untagged_vlan": {
+          "type": "integer",
+          "title": "Untagged VLAN",
+          "description": "The VLAN this interface is untagged with"
+        },
+        "vrf": {
+          "title": "VRF",
+          "type": "string"
         }
       }
     },
@@ -67,16 +81,65 @@
       "allOf": [
         {
           "title": "Type",
-          "description": "Type of the Network Interface",
           "properties": {
             "type": {
+              "title": "Type",
+              "description": "Type of the Network Interface",
               "type": "string",
-              "enum": ["ethernet", "virtual", "loopback", "child"]
+              "enum": ["ethernet", "loopback", "child"]
+            }
+          }
+        },
+
+        { "$ref": "#/definitions/interface_configuration" }
+      ],
+      "properties": {
+        "connection": {
+          "title": "Connection",
+          "type": "object",
+          "description": "Represents a connection to a (network) device",
+          "required": ["hostname"],
+          "properties": {
+            "hostname": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "port": {
+              "type": "string",
+              "maxLength": 255
+            }
+          }
+        }
+      }
+    },
+    "vlan": {
+      "title": "VLAN Interface",
+      "allOf": [
+        {
+          "title": "Type",
+          "properties": {
+            "type": {
+              "title": "Type",
+              "description": "Type of the VLAN Interface",
+              "type": "string",
+              "enum": ["vlan"]
             }
           }
         },
         { "$ref": "#/definitions/interface_configuration" }
-      ]
+      ],
+      "properties": {
+        "vrf": {
+          "title": "VRF",
+          "type": "string"
+        },
+        "vlan_id": {
+          "title": "VLAN ID",
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 4094
+        }
+      }
     },
     "bridge_interface": {
       "title": "Bridge Interface",
@@ -139,21 +202,6 @@
       "title": "OSPF Configuration",
       "description": "Represents the ospf configuration of a device",
       "items": {}
-    },
-    "connection": {
-      "type": "object",
-      "description": "Represents a connection to a (network) device",
-      "required": ["hostname"],
-      "properties": {
-        "hostname": {
-          "type": "string",
-          "maxLength": 255
-        },
-        "port": {
-          "type": "string",
-          "maxLength": 255
-        }
-      }
     }
   },
   "required": ["type"],
@@ -169,8 +217,51 @@
       "items": {
         "oneOf": [
           { "$ref": "#/definitions/network_interface" },
+          { "$ref": "#/definitions/vlan" },
           { "$ref": "#/definitions/bridge_interface" }
         ]
+      }
+    },
+    "vxlans": {
+      "type": "array",
+      "title": "VXLANs",
+      "uniqueItems": true,
+      "items": {
+        "title": "VXLAN",
+        "type": "object",
+        "properties": {
+          "vni": {
+            "title": "VNI",
+            "type": "integer"
+          },
+          "vlan": {
+            "title": "VLAN",
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "vrfs": {
+      "title": "VRFs",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "title": "VRF",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 20
+          },
+          "l3vni": {
+            "title": "L3VNI",
+            "type": "integer"
+          },
+          "l3vlan": {
+            "title": "L3VLAN",
+            "type": "integer"
+          }
+        }
       }
     },
     "routing": {

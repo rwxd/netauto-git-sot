@@ -1,0 +1,79 @@
+type: TopologyConfiguration
+
+interfaces:
+  - name: swp51
+    description: "Spine01"
+    type: ethernet
+    enabled: true
+
+  - name: swp52
+    description: "Spine02"
+    type: ethernet
+    enabled: true
+
+  - name: swp53
+    description: "Spine03"
+    type: ethernet
+    enabled: true
+
+  - name: swp54
+    description: "Spine04"
+    type: ethernet
+    enabled: true
+
+  - name: swp1
+    description: "Server01"
+    type: ethernet
+    enabled: true
+    untagged_vlan: 10
+
+  - name: swp2
+    description: "Server02"
+    type: ethernet
+    enabled: true
+    untagged_vlan: 10
+
+  - name: swp3
+    description: "Server03"
+    type: ethernet
+    enabled: true
+    untagged_vlan: 11
+
+  - name: vlan10
+    description: Krasses VLAN 10
+    type: vlan
+    vlan_id: 10
+    vrf: lab
+    addresses:
+      - address: 192.168.1.1/24
+
+  - name: vlan11
+    description: Krasses VLAN 11
+    type: vlan
+    vlan_id: 11
+    vrf: lab
+    addresses:
+      - address: 192.168.2.1/24
+
+  - name: vlan12
+    description: Krasses VLAN 12
+    type: vlan
+    vlan_id: 12
+    vrf: lab
+    addresses:
+      - address: 192.168.3.1/24
+
+vxlans:
+  - vni: 10010
+    vlan: 10
+
+  - vni: 10011
+    vlan: 11
+
+  - vni: 10012
+    vlan: 12
+
+vrfs:
+  - name: lab
+    l3vni: 403346
+    l3vlan: 3000

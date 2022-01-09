@@ -48,7 +48,7 @@ class PytestPlugin:
     ):
         self.renderer = TemplateRenderer(
             basepath=templates,
-            devices=devices,
+            devices=[d.name for d in devices],
             cache=cache,
             classifier=classifier,
             jerakia=jerakia,

@@ -2,6 +2,13 @@
 type: TopologyConfiguration
 
 interfaces:
+  - name: loopback1
+    description: "Loopback 1"
+    type: loopback
+    enabled: true
+    addresses:
+      - address: 228.139.233.56
+
   - name: GigabitEthernet0/1
     description: "Port 1"
     type: ethernet
@@ -10,6 +17,7 @@ interfaces:
       - address: 206.12.48.220
       - address: 0e92:1d5b:e53e:0bf9:047b:5a9f:10d6:710a
     mtu: 1500
+
   - name: GigabitEthernet0/2
     description: "Port 2"
     type: ethernet

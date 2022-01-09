@@ -38,8 +38,9 @@ class Jerakia(object):
         The key can be multiple layers deep e.g. "foo.bar.baz"
         '''
         scope = self.classifier.scope(find_host_dir(device))
+        searchpaths = self.searchpaths(scope)
         found = None
-        for path in self.searchpaths(scope):
+        for path in searchpaths:
             path = self.datapath.joinpath(path).joinpath(f'{namespace}.yml')
             if not path.exists():
                 logger.warning(f'Could not find {path}')

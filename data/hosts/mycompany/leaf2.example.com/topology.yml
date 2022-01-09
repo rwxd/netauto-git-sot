@@ -2,24 +2,8 @@
 type: TopologyConfiguration
 
 interfaces:
-  - name: GigabitEthernet0/1
-    description: "Port 1"
-    type: ethernet
-    enabled: true
-    connected_to:
-      hostname: sw1
-      interface: GigabitEthernet0/2
+  - name: lo
+    description: "Loopback"
+    type: loopback
     addresses:
-      - address: 191.246.222.49
-      - address: 14df:2fc2:ff81:e66b:4fae:086f:3018:ecf0
-    mtu: 1500
-  - name: GigabitEthernet0/2
-    description: "Port 2"
-    type: ethernet
-    enabled: true
-    connected_to:
-      hostname: sw1
-      interface: GigabitEthernet0/1
-    addresses:
-      - address: 20.252.58.106
-      - address: 8598:1604:bba7:770e:6344:7926:3778:be7b
+      - address: 10.0.2.2/32

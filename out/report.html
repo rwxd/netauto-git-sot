@@ -429,7 +429,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
 }
 </script>
     <h1>report.html</h1>
-    <p>Report generated on 09-Jan-2022 at 21:02:07 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
+    <p>Report generated on 09-Jan-2022 at 23:11:47 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
     <h2>Environment</h2>
     <table id="environment">
       <tr>
@@ -445,7 +445,7 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <td>Python</td>
         <td>3.10.1</td></tr></table>
     <h2>Summary</h2>
-    <p>2 tests ran in 27.67 seconds. </p>
+    <p>2 tests ran in 0.04 seconds. </p>
     <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">2 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
     <h2>Results</h2>
     <table id="results-table">
@@ -461,33 +461,57 @@ function filterTable(elem) { // eslint-disable-line no-unused-vars
         <tr>
           <td class="col-result">Passed</td>
           <td class="col-name">eve/builder/plugin.py::build[leaf2.example.com]</td>
-          <td class="col-duration">27.60</td>
+          <td class="col-duration">0.02</td>
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2022-01-09 21:01:59,020 - eve - WARNING - Could not find data/hosts/mycompany/leaf2.example.com/build.yml
-2022-01-09 21:01:59,021 - eve - WARNING - Could not find data/environment/mycompany/nyc1/build.yml
-2022-01-09 21:01:59,021 - eve - WARNING - Could not find data/environment/mycompany/build.yml
-2022-01-09 21:01:59,024 - eve - WARNING - Could not find data/common/build.yml
-2022-01-09 21:01:59,024 - eve - INFO - Building template cumulus/interfaces.j2 to interfaces.conf for leaf2.example.com
-2022-01-09 21:01:59,037 - eve - DEBUG - Could not find groups in data/environment/mycompany/nyc1/system.yml
-2022-01-09 21:01:59,047 - eve - DEBUG - Could not find groups in data/environment/mycompany/system.yml
-2022-01-09 21:01:59,048 - eve - WARNING - Could not find data/os/cumulus/system.yml
-2022-01-09 21:01:59,049 - eve - DEBUG - Could not find groups in data/common/system.yml
-2022-01-09 21:02:07,219 - eve - WARNING - Could not find data/hosts/mycompany/leaf2.example.com/build.yml
-2022-01-09 21:02:07,219 - eve - WARNING - Could not find data/environment/mycompany/nyc1/build.yml
-2022-01-09 21:02:07,220 - eve - WARNING - Could not find data/environment/mycompany/build.yml
-2022-01-09 21:02:07,220 - eve - WARNING - Could not find data/common/build.yml
-<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  eve:jerakia.py:45 Could not find data/hosts/mycompany/leaf2.example.com/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/nyc1/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/common/build.yml
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2022-01-09 23:11:47,229 - eve - WARNING - Could not find data/hosts/mycompany/leaf2.example.com/build.yml
+2022-01-09 23:11:47,229 - eve - WARNING - Could not find data/environment/mycompany/nyc1/build.yml
+2022-01-09 23:11:47,229 - eve - WARNING - Could not find data/environment/mycompany/build.yml
+2022-01-09 23:11:47,230 - eve - WARNING - Could not find data/common/build.yml
+2022-01-09 23:11:47,230 - eve - WARNING - Could not find data/groups/mycompany/fabric/build.yml
+2022-01-09 23:11:47,230 - eve - WARNING - Could not find data/groups/mycompany/leaf/build.yml
+2022-01-09 23:11:47,230 - eve - INFO - Building template cumulus/interfaces.j2 to interfaces.conf for leaf2.example.com
+2022-01-09 23:11:47,239 - eve - WARNING - Could not find data/environment/mycompany/nyc1/topology.yml
+2022-01-09 23:11:47,239 - eve - WARNING - Could not find data/environment/mycompany/topology.yml
+2022-01-09 23:11:47,239 - eve - WARNING - Could not find data/os/cumulus/topology.yml
+2022-01-09 23:11:47,239 - eve - WARNING - Could not find data/common/topology.yml
+2022-01-09 23:11:47,240 - eve - WARNING - Could not find data/groups/mycompany/fabric/topology.yml
+2022-01-09 23:11:47,245 - eve - DEBUG - Could not find vxlans in data/hosts/mycompany/leaf2.example.com/topology.yml
+2022-01-09 23:11:47,245 - eve - WARNING - Could not find data/environment/mycompany/nyc1/topology.yml
+2022-01-09 23:11:47,245 - eve - WARNING - Could not find data/environment/mycompany/topology.yml
+2022-01-09 23:11:47,245 - eve - WARNING - Could not find data/os/cumulus/topology.yml
+2022-01-09 23:11:47,245 - eve - WARNING - Could not find data/common/topology.yml
+2022-01-09 23:11:47,245 - eve - WARNING - Could not find data/groups/mycompany/fabric/topology.yml
+2022-01-09 23:11:47,246 - eve - WARNING - Could not find data/hosts/mycompany/leaf2.example.com/build.yml
+2022-01-09 23:11:47,246 - eve - WARNING - Could not find data/environment/mycompany/nyc1/build.yml
+2022-01-09 23:11:47,246 - eve - WARNING - Could not find data/environment/mycompany/build.yml
+2022-01-09 23:11:47,246 - eve - WARNING - Could not find data/common/build.yml
+2022-01-09 23:11:47,246 - eve - WARNING - Could not find data/groups/mycompany/fabric/build.yml
+2022-01-09 23:11:47,246 - eve - WARNING - Could not find data/groups/mycompany/leaf/build.yml
+<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  eve:jerakia.py:46 Could not find data/hosts/mycompany/leaf2.example.com/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/nyc1/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/leaf/build.yml
 INFO     eve:plugin.py:22 Building template cumulus/interfaces.j2 to interfaces.conf for leaf2.example.com
-WARNING  eve:jerakia.py:45 Could not find data/os/cumulus/system.yml
-WARNING  eve:jerakia.py:45 Could not find data/hosts/mycompany/leaf2.example.com/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/nyc1/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/common/build.yml<br/></div></td></tr></tbody>
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/nyc1/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/os/cumulus/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/nyc1/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/os/cumulus/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/hosts/mycompany/leaf2.example.com/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/nyc1/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/leaf/build.yml<br/></div></td></tr></tbody>
       <tbody class="passed results-table-row">
         <tr>
           <td class="col-result">Passed</td>
@@ -496,21 +520,50 @@ WARNING  eve:jerakia.py:45 Could not find data/common/build.yml<br/></div></td><
           <td class="col-links"></td></tr>
         <tr>
           <td class="extra" colspan="4">
-            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2022-01-09 21:02:07,241 - eve - WARNING - Could not find data/hosts/mycompany/leaf1.example.com/build.yml
-2022-01-09 21:02:07,241 - eve - WARNING - Could not find data/environment/mycompany/None/build.yml
-2022-01-09 21:02:07,241 - eve - WARNING - Could not find data/environment/mycompany/build.yml
-2022-01-09 21:02:07,242 - eve - WARNING - Could not find data/common/build.yml
-2022-01-09 21:02:07,242 - eve - INFO - Building template cumulus/interfaces.j2 to interfaces.conf for leaf1.example.com
-2022-01-09 21:02:07,243 - eve - WARNING - Could not find data/hosts/mycompany/leaf1.example.com/build.yml
-2022-01-09 21:02:07,243 - eve - WARNING - Could not find data/environment/mycompany/None/build.yml
-2022-01-09 21:02:07,243 - eve - WARNING - Could not find data/environment/mycompany/build.yml
-2022-01-09 21:02:07,244 - eve - WARNING - Could not find data/common/build.yml
-<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  eve:jerakia.py:45 Could not find data/hosts/mycompany/leaf1.example.com/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/None/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/common/build.yml
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2022-01-09 23:11:47,253 - eve - WARNING - Could not find data/hosts/mycompany/leaf1.example.com/build.yml
+2022-01-09 23:11:47,253 - eve - WARNING - Could not find data/environment/mycompany/None/build.yml
+2022-01-09 23:11:47,253 - eve - WARNING - Could not find data/environment/mycompany/build.yml
+2022-01-09 23:11:47,253 - eve - WARNING - Could not find data/common/build.yml
+2022-01-09 23:11:47,253 - eve - WARNING - Could not find data/groups/mycompany/fabric/build.yml
+2022-01-09 23:11:47,253 - eve - WARNING - Could not find data/groups/mycompany/leaf/build.yml
+2022-01-09 23:11:47,253 - eve - INFO - Building template cumulus/interfaces.j2 to interfaces.conf for leaf1.example.com
+2022-01-09 23:11:47,255 - eve - WARNING - Could not find data/environment/mycompany/None/topology.yml
+2022-01-09 23:11:47,256 - eve - WARNING - Could not find data/environment/mycompany/topology.yml
+2022-01-09 23:11:47,256 - eve - WARNING - Could not find data/os/cumulus/topology.yml
+2022-01-09 23:11:47,256 - eve - WARNING - Could not find data/common/topology.yml
+2022-01-09 23:11:47,256 - eve - WARNING - Could not find data/groups/mycompany/fabric/topology.yml
+2022-01-09 23:11:47,257 - eve - DEBUG - Could not find vxlans in data/hosts/mycompany/leaf1.example.com/topology.yml
+2022-01-09 23:11:47,257 - eve - WARNING - Could not find data/environment/mycompany/None/topology.yml
+2022-01-09 23:11:47,257 - eve - WARNING - Could not find data/environment/mycompany/topology.yml
+2022-01-09 23:11:47,257 - eve - WARNING - Could not find data/os/cumulus/topology.yml
+2022-01-09 23:11:47,257 - eve - WARNING - Could not find data/common/topology.yml
+2022-01-09 23:11:47,257 - eve - WARNING - Could not find data/groups/mycompany/fabric/topology.yml
+2022-01-09 23:11:47,258 - eve - WARNING - Could not find data/hosts/mycompany/leaf1.example.com/build.yml
+2022-01-09 23:11:47,258 - eve - WARNING - Could not find data/environment/mycompany/None/build.yml
+2022-01-09 23:11:47,258 - eve - WARNING - Could not find data/environment/mycompany/build.yml
+2022-01-09 23:11:47,258 - eve - WARNING - Could not find data/common/build.yml
+2022-01-09 23:11:47,258 - eve - WARNING - Could not find data/groups/mycompany/fabric/build.yml
+2022-01-09 23:11:47,258 - eve - WARNING - Could not find data/groups/mycompany/leaf/build.yml
+<br/> -------------------------------Captured log call-------------------------------- <br/>WARNING  eve:jerakia.py:46 Could not find data/hosts/mycompany/leaf1.example.com/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/None/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/leaf/build.yml
 INFO     eve:plugin.py:22 Building template cumulus/interfaces.j2 to interfaces.conf for leaf1.example.com
-WARNING  eve:jerakia.py:45 Could not find data/hosts/mycompany/leaf1.example.com/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/None/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/environment/mycompany/build.yml
-WARNING  eve:jerakia.py:45 Could not find data/common/build.yml<br/></div></td></tr></tbody></table></body></html>
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/None/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/os/cumulus/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/None/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/os/cumulus/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/topology.yml
+WARNING  eve:jerakia.py:46 Could not find data/hosts/mycompany/leaf1.example.com/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/None/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/environment/mycompany/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/common/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/fabric/build.yml
+WARNING  eve:jerakia.py:46 Could not find data/groups/mycompany/leaf/build.yml<br/></div></td></tr></tbody></table></body></html>
