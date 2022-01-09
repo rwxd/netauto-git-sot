@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "JSON Schema for Build Configuration",
+  "description": "Describes the build configuration",
+  "type": "object",
+  "required": ["type"],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": ["BuildConfiguration"]
+    },
+    "templates": {
+      "title": "Templates",
+      "description": "Templates to use for this build configuration",
+      "type": "array",
+      "items": {
+        "title": "Template",
+        "description": "Template information",
+        "type": "object",
+        "required": ["source", "destination"],
+        "properties": {
+          "source": {
+            "title": "Source",
+            "type": "string",
+            "description": "Source Jinja Template"
+          },
+          "destination": {
+            "title": "Destination",
+            "type": "string",
+            "description": "Destination file name"
+          }
+        }
+      }
+    },
+    "checks": {
+      "title": "Checks",
+      "type": "array",
+      "items": {
+        "title": "Check",
+        "type": "object",
+        "required": ["script"],
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string",
+            "description": "Description of the check"
+          },
+          "script": {
+            "title": "Script",
+            "type": "string",
+            "description": "Script to run"
+          }
+        }
+      }
+    }
+  }
+}

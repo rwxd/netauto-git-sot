@@ -1,0 +1,7 @@
+type: BuildConfiguration
+
+templates:
+  - source: "cumulus/interfaces.j2"
+    destination: "interfaces.conf"
+
+checks: []

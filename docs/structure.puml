@@ -26,7 +26,7 @@ Syncer -up-> NetBox
 eve -down-> Repository: generates device-specific\nconfigurations from\nthe data model
 eve -right-> JsonSchema: verifies config
 Admin -down--> eve
-Admin -down-> JsonSchema: must follow\nthe data model
+Admin -down-> JsonSchema: must follow\ndata model
 Admin -down-> Repository: creates\nconfiguration changes
 ' Admin -down-> RESTAPI: uses\nquery tools
 Admin -left-> NetBox: read only\naccess

@@ -5,11 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Generate Config",
+      "name": "Build Configuration",
       "type": "python",
       "request": "launch",
       "module": "eve",
-      "args": ["generate-config", "sw1.device-config.yml", "sw1.txt"]
+      "args": ["build", "configurations", "--limit", "data/hosts/"],
+      "justMyCode": false
     },
     {
       "name": "Validate schemas",
@@ -17,6 +18,13 @@
       "request": "launch",
       "module": "eve",
       "args": ["validate", "schemas"]
+    },
+    {
+      "name": "Scope Device leaf2.example.com",
+      "type": "python",
+      "request": "launch",
+      "module": "eve",
+      "args": ["scope", "device", "leaf2.example.com"]
     }
   ]
 }

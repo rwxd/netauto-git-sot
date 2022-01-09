@@ -1,6 +1,20 @@
 from pathlib import Path
-from typing import List
+from typing import List, Optional
+import yaml
 import os
+from eve.models.system import JsonSchemaForSystemConfiguration
+
+
+def get_system(path: Path) -> Optional[JsonSchemaForSystemConfiguration]:
+    if path.is_dir():
+        files = list_files(path)
+        for file in files:
+            if file.name == 'system.yml':
+                path = file
+    with open(path, 'r') as f:
+        loaded = yaml.safe_load(f)
+    system = JsonSchemaForSystemConfiguration.parse_obj(loaded)
+    return system
 
 
 def get_all_configuration_files() -> List[Path]:
@@ -10,32 +24,18 @@ def get_all_configuration_files() -> List[Path]:
 
 def get_hosts() -> List[Path]:
     hosts = []
-    for company in list_subdirectories('data/hosts'):
+    for company in list_subdirectories(Path('data/hosts')):
         for host in list_subdirectories(company):
             hosts.append(host)
     return hosts
 
 
-# def load_repository_structure(repository_path: Path) -> Repository:
-#     organizations_path = repository_path.joinpath('organizations')
-#     repository = Repository(organizations=[])
-#     for org in list_subdirectories(organizations_path):
-#         organization = Organization(name=org.name, tenants=[])
-#         organization_path = organizations_path.joinpath(org.name)
-#         tenants_path = organization_path.joinpath('tenants')
-#         for ten in list_subdirectories(tenants_path):
-#             tenant = Tenant(name=ten.name, devices=[])
-#             tenant_path = tenants_path.joinpath(ten.name)
-#             devices_path = tenant_path.joinpath('devices')
-#             for dev in list_files(devices_path):
-#                 device_path = devices_path.joinpath(dev.name)
-#                 with open(device_path, 'r') as f:
-#                     loaded = yaml.safe_load(f)
-#                     device_config = JsonSchemaForNetworkConfiguration.parse_obj(loaded)
-#                 tenant.devices.append(device_config)
-#             organization.tenants.append(tenant)
-#         repository.organizations.append(organization)
-#     return repository
+def find_host_dir(host: str) -> Path:
+    for item in get_hosts():
+        if item.name == host:
+            return item
+    else:
+        raise ValueError(f'Could not find a host directory for {host}')
 
 
 def list_subdirectories(directory: Path) -> List[Path]:
@@ -47,6 +47,8 @@ def list_subdirectories(directory: Path) -> List[Path]:
 
 
 def list_files(directory: Path) -> List[Path]:
+    files = []
     for file in directory.iterdir():
         if file.is_file():
-            yield file
+            files.append(file)
+    return files

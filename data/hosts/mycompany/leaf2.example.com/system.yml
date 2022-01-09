@@ -11,5 +11,8 @@ general:
     room: "100"
     rack: A
     shelf: "1"
+  groups:
+    - leaf
+    - fabric
 
 timezone: Europe/Berlin

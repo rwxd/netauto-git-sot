@@ -6,6 +6,9 @@ general:
   type: Switch
   tenant: mycompany
   location:
+    rack: rack05
+    room: office
+    shelf: "5"
   groups:
     - leaf
     - fabric

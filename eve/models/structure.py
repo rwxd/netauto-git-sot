@@ -1,17 +1,7 @@
-from typing import List
-from pydantic import BaseModel
-from eve.models.device_configuration import JsonSchemaForNetworkConfiguration
+from enum import Enum, auto
 
 
-class Tenant(BaseModel):
-    name: str
-    devices: List[JsonSchemaForNetworkConfiguration]
-
-
-class Organization(BaseModel):
-    name: str
-    tenants: List[Tenant]
-
-
-class Repository(BaseModel):
-    organizations: List[Organization]
+class Namespace(Enum):
+    system = auto()
+    topology = auto()
+    routing = auto()

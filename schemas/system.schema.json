@@ -160,6 +160,24 @@
       "type": "string",
       "default": "Europe/Berlin",
       "pattern": "^([a-zA-Z]+\\/[a-zA-Z]+)$"
+    },
+    "software": {
+      "title": "Software",
+      "description": "Software of the device",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "os": {
+          "title": "Operating System",
+          "description": "Operating System of the device",
+          "type": "string"
+        },
+        "version": {
+          "title": "Version",
+          "description": "Version of the device",
+          "type": "string"
+        }
+      }
     }
   }
 }

@@ -1,9 +1,10 @@
-from ipaddress import ip_address, ip_interface, ip_network
-import ansible.plugins.filter.core
-import ansible_collections
+from ipaddress import ip_network
 
-_registered_jinja_filters = []
-_imported_jinja_filters = [
+import ansible.plugins.filter.core
+import ansible_collections.ansible.netcommon.plugins.filter.ipaddr
+
+registered_jinja_filters = []
+imported_jinja_filters = [
     (
         ansible.plugins.filter.core,
         [
@@ -26,7 +27,7 @@ _imported_jinja_filters = [
 
 def jinjafilter(f):
     '''Adds the filter'''
-    _registered_jinja_filters.append(f)
+    registered_jinja_filters.append(f)
     return f
 
 
