@@ -6,11 +6,11 @@ from eve.utils import recursive_key_lookup
 def get_searchpaths(scope: Dict[str, Union[List, str]]) -> List[Path]:
     '''Returns the seachpaths for the given scope'''
     paths = [
-        'hosts/{scope[tenant]}/{scope[fqdn]}/',
-        'environment/{scope[tenant]}/{scope[datacenter]}/',
-        'environment/{scope[tenant]}/',
-        'os/{scope[os]}/{scope[os_version]}',
-        'os/{scope[os]}/',
+        'hosts/{scope[system][general][tenant]}/{scope[system][general][fqdn]}/',
+        'environment/{scope[system][general][tenant]}/{scope[system][general][location][datacenter]}/',
+        'environment/{scope[system][general][tenant]}/',
+        'os/{scope[system][software][os]}/{scope[system][software][os_version]}',
+        'os/{scope[system][software][os]}/',
         'common/',
         *['groups/{group}' for group in scope.get('groups', [])],
     ]

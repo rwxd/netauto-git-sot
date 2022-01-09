@@ -1,5 +1,9 @@
 type: SystemConfiguration
 
+groups:
+  - leaf
+  - fabric
+
 general:
   hostname: leaf1
   fqdn: leaf1.example.com
@@ -9,9 +13,6 @@ general:
     rack: rack05
     room: office
     shelf: "5"
-  groups:
-    - leaf
-    - fabric
 
 software:
   os: cumulus

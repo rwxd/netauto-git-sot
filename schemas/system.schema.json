@@ -112,6 +112,14 @@
         }
       }
     },
+    "groups": {
+      "title": "Groups",
+      "type": "array",
+      "items": {
+        "title": "Group",
+        "type": "string"
+      }
+    },
     "general": {
       "type": "object",
       "title": "General Settings",
@@ -143,14 +151,6 @@
         },
         "description": {
           "type": "string"
-        },
-        "groups": {
-          "title": "Groups",
-          "type": "array",
-          "items": {
-            "title": "Group",
-            "type": "string"
-          }
         }
       }
     },
