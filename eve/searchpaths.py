@@ -1,6 +1,6 @@
 from pathlib import Path
 from typing import List, Dict, Union
-from eve.structure import get_system
+from eve.utils import recursive_key_lookup
 
 
 def get_searchpaths(scope: Dict[str, Union[List, str]]) -> List[Path]:
@@ -12,10 +12,7 @@ def get_searchpaths(scope: Dict[str, Union[List, str]]) -> List[Path]:
         'os/{scope[os]}/{scope[os_version]}',
         'os/{scope[os]}/',
         'common/',
-        *[
-            'groups/{group}'
-            for group in scope.get('system', {}).get('general', {}).get('groups', [])
-        ],
+        *['groups/{group}' for group in scope.get('groups', [])],
     ]
 
     for idx in range(len(paths)):

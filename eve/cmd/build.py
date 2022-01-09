@@ -61,6 +61,7 @@ def configurations(
                 devices=host_paths,
                 targets=targets,
                 jerakia=jerakia,
+                classifier=classifier,
             )
         ],
     )

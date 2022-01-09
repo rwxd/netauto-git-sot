@@ -1,12 +1,11 @@
-from typing import List, Tuple
+from typing import List, Tuple, Union
 from pathlib import Path
-
-from pydantic.types import Json
+from pydantic import BaseModel
 from eve.models.system import JsonSchemaForSystemConfiguration
 from eve.models.topology import JsonSchemaForTopologyConfiguration
-from eve.models.system import JsonSchemaForSystemConfiguration
+from eve.models.build import JsonSchemaForBuildConfiguration
 
-schemas: List[Tuple[str, Path, object]] = [
+schemas: List[Tuple[str, Path, BaseModel]] = [
     (
         'system.yml',
         Path('schemas/system.schema.json'),
@@ -17,5 +16,5 @@ schemas: List[Tuple[str, Path, object]] = [
         Path('schemas/topology.schema.json'),
         JsonSchemaForTopologyConfiguration,
     ),
-    ('build.yml', Path('schemas/build.schema.json'), JsonSchemaForSystemConfiguration),
+    ('build.yml', Path('schemas/build.schema.json'), JsonSchemaForBuildConfiguration),
 ]

@@ -1,3 +1,4 @@
-{% for interface in  %}
-iface {{ interface.name }}
-{% endif %}
+test
+{% for group in lookup('system', 'groups', 'leaf2.example.com') %}
+{{ group }}
+{% endfor %}

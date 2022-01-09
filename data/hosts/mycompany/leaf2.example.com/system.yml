@@ -15,4 +15,8 @@ general:
     - leaf
     - fabric
 
+software:
+  os: cumulus
+  version: 2.2.0
+
 timezone: Europe/Berlin

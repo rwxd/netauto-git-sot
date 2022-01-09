@@ -12,3 +12,7 @@ general:
   groups:
     - leaf
     - fabric
+
+software:
+  os: cumulus
+  version: 2.2.0

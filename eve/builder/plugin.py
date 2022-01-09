@@ -1,6 +1,7 @@
 from pathlib import Path
 import logging
-from typing import List
+from typing import List, Callable
+from eve.classifier import Classifier
 from eve.jerakia import Jerakia
 from eve.jinja.renderer import TemplateRenderer
 import sys
@@ -8,12 +9,25 @@ import pytest
 from _pytest.config import Config
 from _pytest.config.argparsing import Parser
 from eve.logging import logger
+from eve.models.build import Template
 import os
 
 
 def build(request, plugin, template_render, device):
     '''Build the provided device'''
     templates = plugin.jerakia.lookup(device, namespace="build", key="templates")
+    if not templates:
+        pytest.skip(f'No templates defined or found for {device}')
+    for template in templates:
+        logger.info(
+            f'Building template {template.source} to {template.destination} for {device}'
+        )
+        template_render(device, template)
+    if not plugin.skip_checks:
+        checks = plugin.jerakia.lookup(device, namespace="build", key="checks")
+        for check in checks:
+            logger.info(f'Running check {check.script} for {device}')
+            os.system(f'{check.script} {device}')
 
 
 class PytestPlugin:
@@ -29,12 +43,15 @@ class PytestPlugin:
         targets: List[Path],
         debug: bool,
         silent: bool,
-        jerakia: Jerakia
+        jerakia: Jerakia,
+        classifier: Classifier,
     ):
         self.renderer = TemplateRenderer(
             basepath=templates,
             devices=devices,
             cache=cache,
+            classifier=classifier,
+            jerakia=jerakia,
         )
         self.jerakia = jerakia
         self.output = output
@@ -75,17 +92,13 @@ class PytestPlugin:
             return metafunc.parametrize('device', [p.name for p in self.targets])
 
     @pytest.fixture(scope='session')
-    def template_render(self):
-        def _render(device, template):
-            result = self.renderer.render(template["name"], device)
+    def template_render(self) -> Callable[[str, Template], None]:
+        def _render(device: str, template: Template) -> None:
+            result = self.renderer.render(template.source, device)
             if not result or not result.strip():
-                logger.info(
-                    "skip empty template {} for {}".format(device, template["name"])
-                )
+                logger.info(f'skip empty template {device} for {template.source}')
                 return
-            output_file = self.output.joinpath(device.name).joinpath(
-                template['destination']
-            )
+            output_file = self.output.joinpath(device).joinpath(template.destination)
             output_file.parent.mkdir(parents=True, exist_ok=True)
             with open(output_file, "w") as f:
                 f.write(result)

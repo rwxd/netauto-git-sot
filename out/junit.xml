@@ -1,1 +1,214 @@
-<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="0" skipped="0" tests="2" time="0.055" timestamp="2022-01-09T03:11:06.428577" hostname="manjaro"><testcase classname="eve.builder.plugin" name="build[leaf2.example.com]" time="0.009" /><testcase classname="eve.builder.plugin" name="build[leaf1.example.com]" time="0.007" /></testsuite></testsuites>
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="0" tests="2" time="0.804" timestamp="2022-01-09T20:53:55.961063" hostname="manjaro"><testcase classname="eve.builder.plugin" name="build[leaf2.example.com]" time="0.026"><failure message="AttributeError: 'JsonSchemaForSystemConfiguration' object has no attribute 'groups'">request = &lt;FixtureRequest for &lt;Function build[leaf2.example.com]&gt;&gt;, plugin = &lt;eve.builder.plugin.PytestPlugin object at 0x7fe1e3361ab0&gt;
+template_render = &lt;function PytestPlugin.template_render.&lt;locals&gt;._render at 0x7fe1e35c8790&gt;, device = 'leaf2.example.com'
+
+    def build(request, plugin, template_render, device):
+        '''Build the provided device'''
+        templates = plugin.jerakia.lookup(device, namespace="build", key="templates")
+        if not templates:
+            pytest.skip(f'No templates defined or found for {device}')
+        for template in templates:
+            logger.info(
+                f'Building template {template.source} to {template.destination} for {device}'
+            )
+&gt;           template_render(device, template)
+
+device     = 'leaf2.example.com'
+plugin     = &lt;eve.builder.plugin.PytestPlugin object at 0x7fe1e3361ab0&gt;
+request    = &lt;FixtureRequest for &lt;Function build[leaf2.example.com]&gt;&gt;
+template   = Template(source='cumulus/interfaces.j2', destination='interfaces.conf')
+template_render = &lt;function PytestPlugin.template_render.&lt;locals&gt;._render at 0x7fe1e35c8790&gt;
+templates  = [Template(source='cumulus/interfaces.j2', destination='interfaces.conf')]
+
+eve/builder/plugin.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+eve/builder/plugin.py:97: in _render
+    result = self.renderer.render(template.source, device)
+        device     = 'leaf2.example.com'
+        self       = &lt;eve.builder.plugin.PytestPlugin object at 0x7fe1e3361ab0&gt;
+        template   = Template(source='cumulus/interfaces.j2', destination='interfaces.conf')
+eve/jinja/renderer.py:103: in render
+    return template.render(device=device, **scope)
+        device     = 'leaf2.example.com'
+        name       = 'cumulus/interfaces.j2'
+        scope      = {'datacenter': 'nyc1', 'fqdn': 'leaf2.example.com', 'groups': ['leaf', 'fabric'], 'os': 'cumulus', ...}
+        self       = &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;
+        template   = &lt;Template 'cumulus/interfaces.j2'&gt;
+.venv/lib/python3.10/site-packages/jinja2/environment.py:1291: in render
+    self.environment.handle_exception()
+        args       = ()
+        ctx        = &lt;Context {'range': &lt;class 'range'&gt;, 'dict': &lt;class 'dict'&gt;, 'lipsum': &lt;function generate_lorem_ipsum at 0x7fe1f1174550...'os': 'cumulus', 'os_version': '2.2.0', 'tenant': 'mycompany', 'fqdn': 'leaf2.example.com'} of 'cumulus/interfaces.j2'&gt;
+        kwargs     = {'datacenter': 'nyc1', 'device': 'leaf2.example.com', 'fqdn': 'leaf2.example.com', 'groups': ['leaf', 'fabric'], ...}
+        self       = &lt;Template 'cumulus/interfaces.j2'&gt;
+.venv/lib/python3.10/site-packages/jinja2/environment.py:925: in handle_exception
+    raise rewrite_traceback_stack(source=source)
+        rewrite_traceback_stack = &lt;function rewrite_traceback_stack at 0x7fe1e35c8ee0&gt;
+        self       = &lt;jinja2.environment.Environment object at 0x7fe1e3361b40&gt;
+        source     = None
+templates/cumulus/interfaces.j2:2: in top-level template code
+    {% for group in lookup('system', 'groups', 'leaf2.example.com') %}
+        cycler     = &lt;class 'jinja2.utils.Cycler'&gt;
+        datacenter = 'nyc1'
+        device     = 'leaf2.example.com'
+        devices    = [PosixPath('data/hosts/mycompany/leaf2.example.com'), PosixPath('data/hosts/mycompany/leaf1.example.com')]
+        dict       = &lt;class 'dict'&gt;
+        fqdn       = 'leaf2.example.com'
+        groups     = ['leaf', 'fabric']
+        joiner     = &lt;class 'jinja2.utils.Joiner'&gt;
+        lipsum     = &lt;function generate_lorem_ipsum at 0x7fe1f1174550&gt;
+        lookup     = &lt;bound method TemplateRenderer._lookup of &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;&gt;
+        namespace  = &lt;class 'jinja2.utils.Namespace'&gt;
+        os         = 'cumulus'
+        os_version = '2.2.0'
+        range      = &lt;class 'range'&gt;
+        scope      = &lt;bound method Classifier.scope of &lt;eve.classifier.Classifier object at 0x7fe1e3361de0&gt;&gt;
+        store      = &lt;bound method TemplateRenderer._store_get of &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;&gt;
+        tenant     = 'mycompany'
+eve/jinja/renderer.py:110: in _lookup
+    value = self.jerakia.lookup(device, namespace, key)
+        ctx        = &lt;Context {'range': &lt;class 'range'&gt;, 'dict': &lt;class 'dict'&gt;, 'lipsum': &lt;function generate_lorem_ipsum at 0x7fe1f1174550...'os': 'cumulus', 'os_version': '2.2.0', 'tenant': 'mycompany', 'fqdn': 'leaf2.example.com'} of 'cumulus/interfaces.j2'&gt;
+        device     = 'leaf2.example.com'
+        key        = 'groups'
+        namespace  = 'system'
+        self       = &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;eve.jerakia.Jerakia object at 0x7fe1e3361a20&gt;, device = 'leaf2.example.com', namespace = 'system', key = 'groups'
+
+    @functools.lru_cache(maxsize=None)
+    def lookup(self, device: str, namespace: str, key: str) -&gt; Any:
+        '''Lookup a value in Jerakia for a given device.
+        The key can be multiple layers deep e.g. "foo.bar.baz"
+        '''
+        scope = self.classifier.scope(find_host_dir(device))
+        found = None
+        for path in self.searchpaths(scope):
+            path = self.datapath.joinpath(path).joinpath(f'{namespace}.yml')
+            if not path.exists():
+                logger.warning(f'Could not find {path}')
+                continue
+            data = self.yaml_load(path)
+            parsed_schema = get_object_for_schema_name(path.name).parse_obj(data)
+            if '.' in key:
+                traversal = key.split('.')
+                value = recursive_attribute_lookup(parsed_schema, traversal)
+            else:
+&gt;               value = getattr(parsed_schema, key)
+E               AttributeError: 'JsonSchemaForSystemConfiguration' object has no attribute 'groups'
+
+data       = {'general': {'fqdn': 'leaf2.example.com', 'groups': ['leaf', 'fabric'], 'hostname': 'leaf2', 'location': {'datacenter'...}, ...}, 'software': {'os': 'cumulus', 'version': '2.2.0'}, 'timezone': 'Europe/Berlin', 'type': 'SystemConfiguration'}
+device     = 'leaf2.example.com'
+found      = None
+key        = 'groups'
+namespace  = 'system'
+parsed_schema = JsonSchemaForSystemConfiguration(type=&lt;Type.SystemConfiguration: 'SystemConfiguration'&gt;, dns=None, tacacs=None, netbox...scription=None, groups=['leaf', 'fabric']), timezone='Europe/Berlin', software=Software(os='cumulus', version='2.2.0'))
+path       = PosixPath('data/hosts/mycompany/leaf2.example.com/system.yml')
+scope      = {'datacenter': 'nyc1', 'fqdn': 'leaf2.example.com', 'groups': ['leaf', 'fabric'], 'os': 'cumulus', ...}
+self       = &lt;eve.jerakia.Jerakia object at 0x7fe1e3361a20&gt;
+
+eve/jerakia.py:53: AttributeError</failure></testcase><testcase classname="eve.builder.plugin" name="build[leaf1.example.com]" time="0.009"><failure message="AttributeError: 'JsonSchemaForSystemConfiguration' object has no attribute 'groups'">request = &lt;FixtureRequest for &lt;Function build[leaf1.example.com]&gt;&gt;, plugin = &lt;eve.builder.plugin.PytestPlugin object at 0x7fe1e3361ab0&gt;
+template_render = &lt;function PytestPlugin.template_render.&lt;locals&gt;._render at 0x7fe1e35c8790&gt;, device = 'leaf1.example.com'
+
+    def build(request, plugin, template_render, device):
+        '''Build the provided device'''
+        templates = plugin.jerakia.lookup(device, namespace="build", key="templates")
+        if not templates:
+            pytest.skip(f'No templates defined or found for {device}')
+        for template in templates:
+            logger.info(
+                f'Building template {template.source} to {template.destination} for {device}'
+            )
+&gt;           template_render(device, template)
+
+device     = 'leaf1.example.com'
+plugin     = &lt;eve.builder.plugin.PytestPlugin object at 0x7fe1e3361ab0&gt;
+request    = &lt;FixtureRequest for &lt;Function build[leaf1.example.com]&gt;&gt;
+template   = Template(source='cumulus/interfaces.j2', destination='interfaces.conf')
+template_render = &lt;function PytestPlugin.template_render.&lt;locals&gt;._render at 0x7fe1e35c8790&gt;
+templates  = [Template(source='cumulus/interfaces.j2', destination='interfaces.conf')]
+
+eve/builder/plugin.py:25: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+eve/builder/plugin.py:97: in _render
+    result = self.renderer.render(template.source, device)
+        device     = 'leaf1.example.com'
+        self       = &lt;eve.builder.plugin.PytestPlugin object at 0x7fe1e3361ab0&gt;
+        template   = Template(source='cumulus/interfaces.j2', destination='interfaces.conf')
+eve/jinja/renderer.py:103: in render
+    return template.render(device=device, **scope)
+        device     = 'leaf1.example.com'
+        name       = 'cumulus/interfaces.j2'
+        scope      = {'fqdn': 'leaf1.example.com', 'groups': ['leaf', 'fabric'], 'os': 'cumulus', 'os_version': '2.2.0', ...}
+        self       = &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;
+        template   = &lt;Template 'cumulus/interfaces.j2'&gt;
+.venv/lib/python3.10/site-packages/jinja2/environment.py:1291: in render
+    self.environment.handle_exception()
+        args       = ()
+        ctx        = &lt;Context {'range': &lt;class 'range'&gt;, 'dict': &lt;class 'dict'&gt;, 'lipsum': &lt;function generate_lorem_ipsum at 0x7fe1f1174550...'os': 'cumulus', 'os_version': '2.2.0', 'tenant': 'mycompany', 'fqdn': 'leaf1.example.com'} of 'cumulus/interfaces.j2'&gt;
+        kwargs     = {'device': 'leaf1.example.com', 'fqdn': 'leaf1.example.com', 'groups': ['leaf', 'fabric'], 'os': 'cumulus', ...}
+        self       = &lt;Template 'cumulus/interfaces.j2'&gt;
+.venv/lib/python3.10/site-packages/jinja2/environment.py:925: in handle_exception
+    raise rewrite_traceback_stack(source=source)
+        rewrite_traceback_stack = &lt;function rewrite_traceback_stack at 0x7fe1e35c8ee0&gt;
+        self       = &lt;jinja2.environment.Environment object at 0x7fe1e3361b40&gt;
+        source     = None
+templates/cumulus/interfaces.j2:2: in top-level template code
+    {% for group in lookup('system', 'groups', 'leaf2.example.com') %}
+        cycler     = &lt;class 'jinja2.utils.Cycler'&gt;
+        device     = 'leaf1.example.com'
+        devices    = [PosixPath('data/hosts/mycompany/leaf2.example.com'), PosixPath('data/hosts/mycompany/leaf1.example.com')]
+        dict       = &lt;class 'dict'&gt;
+        fqdn       = 'leaf1.example.com'
+        groups     = ['leaf', 'fabric']
+        joiner     = &lt;class 'jinja2.utils.Joiner'&gt;
+        lipsum     = &lt;function generate_lorem_ipsum at 0x7fe1f1174550&gt;
+        lookup     = &lt;bound method TemplateRenderer._lookup of &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;&gt;
+        namespace  = &lt;class 'jinja2.utils.Namespace'&gt;
+        os         = 'cumulus'
+        os_version = '2.2.0'
+        range      = &lt;class 'range'&gt;
+        scope      = &lt;bound method Classifier.scope of &lt;eve.classifier.Classifier object at 0x7fe1e3361de0&gt;&gt;
+        store      = &lt;bound method TemplateRenderer._store_get of &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;&gt;
+        tenant     = 'mycompany'
+eve/jinja/renderer.py:110: in _lookup
+    value = self.jerakia.lookup(device, namespace, key)
+        ctx        = &lt;Context {'range': &lt;class 'range'&gt;, 'dict': &lt;class 'dict'&gt;, 'lipsum': &lt;function generate_lorem_ipsum at 0x7fe1f1174550...'os': 'cumulus', 'os_version': '2.2.0', 'tenant': 'mycompany', 'fqdn': 'leaf1.example.com'} of 'cumulus/interfaces.j2'&gt;
+        device     = 'leaf2.example.com'
+        key        = 'groups'
+        namespace  = 'system'
+        self       = &lt;eve.jinja.renderer.TemplateRenderer object at 0x7fe1e3361a80&gt;
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = &lt;eve.jerakia.Jerakia object at 0x7fe1e3361a20&gt;, device = 'leaf2.example.com', namespace = 'system', key = 'groups'
+
+    @functools.lru_cache(maxsize=None)
+    def lookup(self, device: str, namespace: str, key: str) -&gt; Any:
+        '''Lookup a value in Jerakia for a given device.
+        The key can be multiple layers deep e.g. "foo.bar.baz"
+        '''
+        scope = self.classifier.scope(find_host_dir(device))
+        found = None
+        for path in self.searchpaths(scope):
+            path = self.datapath.joinpath(path).joinpath(f'{namespace}.yml')
+            if not path.exists():
+                logger.warning(f'Could not find {path}')
+                continue
+            data = self.yaml_load(path)
+            parsed_schema = get_object_for_schema_name(path.name).parse_obj(data)
+            if '.' in key:
+                traversal = key.split('.')
+                value = recursive_attribute_lookup(parsed_schema, traversal)
+            else:
+&gt;               value = getattr(parsed_schema, key)
+E               AttributeError: 'JsonSchemaForSystemConfiguration' object has no attribute 'groups'
+
+data       = {'general': {'fqdn': 'leaf2.example.com', 'groups': ['leaf', 'fabric'], 'hostname': 'leaf2', 'location': {'datacenter'...}, ...}, 'software': {'os': 'cumulus', 'version': '2.2.0'}, 'timezone': 'Europe/Berlin', 'type': 'SystemConfiguration'}
+device     = 'leaf2.example.com'
+found      = None
+key        = 'groups'
+namespace  = 'system'
+parsed_schema = JsonSchemaForSystemConfiguration(type=&lt;Type.SystemConfiguration: 'SystemConfiguration'&gt;, dns=None, tacacs=None, netbox...scription=None, groups=['leaf', 'fabric']), timezone='Europe/Berlin', software=Software(os='cumulus', version='2.2.0'))
+path       = PosixPath('data/hosts/mycompany/leaf2.example.com/system.yml')
+scope      = {'datacenter': 'nyc1', 'fqdn': 'leaf2.example.com', 'groups': ['leaf', 'fabric'], 'os': 'cumulus', ...}
+self       = &lt;eve.jerakia.Jerakia object at 0x7fe1e3361a20&gt;
+
+eve/jerakia.py:53: AttributeError</failure></testcase></testsuite></testsuites>

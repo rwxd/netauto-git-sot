@@ -1,6 +1,5 @@
 """Key-value store functions."""
 
-import logging
 import yaml
 import functools
 import os
@@ -11,6 +10,9 @@ from eve.searchpaths import get_searchpaths
 from eve.classifier import Classifier
 from eve.structure import find_host_dir
 from eve.logging import logger
+from eve.schemas import get_object_for_schema_name
+from eve.utils import recursive_attribute_lookup
+from typing import Any
 
 
 class Jerakia(object):
@@ -31,28 +33,35 @@ class Jerakia(object):
             return yaml.safe_load(input)
 
     @functools.lru_cache(maxsize=None)
-    def lookup(self, device: str, namespace: str, key: str):
-        '''Lookup a value in Jerakia for a given device.'''
-        device_path = find_host_dir(device)
-        scope = self.classifier.scope(device_path)
+    def lookup(self, device: str, namespace: str, key: str) -> Any:
+        '''Lookup a value in Jerakia for a given device.
+        The key can be multiple layers deep e.g. "foo.bar.baz"
+        '''
+        scope = self.classifier.scope(find_host_dir(device))
         found = None
-        searchpaths = self.searchpaths(scope)
-        for path in searchpaths:
+        for path in self.searchpaths(scope):
             path = self.datapath.joinpath(path).joinpath(f'{namespace}.yml')
             if not path.exists():
                 logger.warning(f'Could not find {path}')
                 continue
             data = self.yaml_load(path)
-            if data is None or not key in data:
+            parsed_schema = get_object_for_schema_name(path.name).parse_obj(data)
+            if '.' in key:
+                traversal = key.split('.')
+                value = recursive_attribute_lookup(parsed_schema, traversal)
+            else:
+                value = getattr(parsed_schema, key)
+
+            if value is None:
+                logger.debug(f'Could not find {key} in {path}')
                 continue
-            current = copy.deepcopy(data[key])
-            # if merge is None:
-            #     return current
-            # if found is None:
-            #     found = current
-            # elif merge == "hash":
-            #     current.update(found)
-            #     found = current
-            # elif merge == "array":
-            #     found.extend(current)
+
+            current = copy.deepcopy(value)
+            if found is None:
+                found = current
+            elif type(found) == object:
+                current.update(found.dict())
+                found = current
+            elif type(found) == list:
+                found.extend(current)
         return found
