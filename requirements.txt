@@ -6,7 +6,7 @@ typer==0.4.2
 Jinja2==3.1.2
 netaddr==0.8.0
 ansible==6.0.0
-pytest==7.1.2
+pytest==7.4.4
 pytest-html
 types-PyYAML
 requests
