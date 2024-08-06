@@ -1,5 +1,5 @@
 jsonschema==4.6.1
-PyYAML==6.0
+PyYAML==6.0.2
 datamodel-code-generator==0.13.0
 json-schema-for-humans==0.41.3
 typer==0.4.2
