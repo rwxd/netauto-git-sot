@@ -1,4 +1,4 @@
-from python:3.10-slim
+from python:3.14-slim
 
 RUN : \
     && apt-get update \
